@@ -6,10 +6,11 @@
 #
 default: &default
   adapter: postgresql
+  pool: 5
+  host: localhost
+  timeout: 5000
   username: postgres
   password: garbana
-  pool: 5
-  timeout: 5000
 
 development:
   <<: *default
