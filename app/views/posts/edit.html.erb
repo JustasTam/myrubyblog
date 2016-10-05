@@ -1,0 +1,11 @@
+<%= form_for @post do |f| %>
+	<h3><%= f.label :title %></h3>
+	<p><%= f.text_field :title %></p>
+
+	<h3><%= f.label :body %></h3>
+	<p><%= f.text_field :body, cols: 10, rows: 10 %></p>
+
+	<p><%= f.select :category_id, Category.all.collect { |c| [c.name, c.id]} %></p>
+
+	<p><%= f.submit "Update" %></p>
+<% end %>
