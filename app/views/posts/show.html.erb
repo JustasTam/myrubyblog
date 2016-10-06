@@ -1,6 +1,11 @@
-<%= link_to 'back',posts_path %>
 <h1><%= @post.title %></h1>
 <small><%= @post.created_at.strftime("%b %d. %Y") %></small>
 <p><%= @post.body %></p>
 
-<%= link_to 'Edit',edit_post_path %> | <%= link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure?' } %>
+<p>Category: <%= link_to @post.category.name, category_path(id: @post.category.id) %></p>
+
+<p><%= link_to 'Back', posts_path %></p>
+
+
+
+<!-- # <%= link_to 'Edit',edit_post_path %> | <%= link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure?' } %> -->
