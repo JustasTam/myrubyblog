@@ -4,15 +4,11 @@ source 'https://rubygems.org'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 gem 'pg'
 
-
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'activeadmin', github: 'activeadmin'
-
 gem 'devise', github: 'plataformatec/devise'
 
-
-
-
+gem 'ransack'
 
 gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'

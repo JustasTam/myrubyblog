@@ -11,6 +11,7 @@ ActiveAdmin.register_page "Dashboard" do
             end
 
             column :category, sortable: :category
+            column "Author",:admin_user
             column :created_at
           end
 
