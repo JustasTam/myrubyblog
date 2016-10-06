@@ -8,4 +8,8 @@ class CategoriesController < ApplicationController
   	@posts = @category.posts
   end
 
+  def create
+
+  end
+
 end
