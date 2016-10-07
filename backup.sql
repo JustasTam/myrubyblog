@@ -168,6 +168,43 @@ ALTER SEQUENCE categories_id_seq OWNED BY categories.id;
 
 
 --
+-- Name: comments; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE comments (
+    id integer NOT NULL,
+    name character varying,
+    body text,
+    post_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE comments OWNER TO postgres;
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE comments_id_seq OWNER TO postgres;
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
+
+
+--
 -- Name: posts; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -241,6 +278,13 @@ ALTER TABLE ONLY categories ALTER COLUMN id SET DEFAULT nextval('categories_id_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
+ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY posts ALTER COLUMN id SET DEFAULT nextval('posts_id_seq'::regclass);
 
 
@@ -305,6 +349,31 @@ SELECT pg_catalog.setval('categories_id_seq', 7, true);
 
 
 --
+-- Data for Name: comments; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY comments (id, name, body, post_id, created_at, updated_at) FROM stdin;
+1	test	kietai	6	2016-10-07 09:54:54.668263	2016-10-07 09:54:54.668263
+2	Jonas	oho	6	2016-10-07 10:07:14.18083	2016-10-07 10:07:14.18083
+3	op	dfsdf	6	2016-10-07 10:29:10.221327	2016-10-07 10:29:10.221327
+4	good	good	6	2016-10-07 10:36:25.327843	2016-10-07 10:36:25.327843
+5	ff	ff	6	2016-10-07 10:37:18.545072	2016-10-07 10:37:18.545072
+6	sdf	sdfsdf	6	2016-10-07 10:38:14.835036	2016-10-07 10:38:14.835036
+7	justas	labe graze	6	2016-10-07 10:41:19.254121	2016-10-07 10:41:19.254121
+8	oho	asdasd	6	2016-10-07 10:43:25.968311	2016-10-07 10:43:25.968311
+9	sdf	sdf	6	2016-10-07 10:43:42.240403	2016-10-07 10:43:42.240403
+10	naujas	tes	6	2016-10-07 11:15:20.934415	2016-10-07 11:15:20.934415
+\.
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('comments_id_seq', 10, true);
+
+
+--
 -- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -333,6 +402,7 @@ COPY schema_migrations (version) FROM stdin;
 20161006104747
 20161006104751
 20161006205857
+20161007092939
 \.
 
 
@@ -366,6 +436,14 @@ ALTER TABLE ONLY ar_internal_metadata
 
 ALTER TABLE ONLY categories
     ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY comments
+    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
 
 
 --
@@ -417,6 +495,21 @@ CREATE UNIQUE INDEX index_admin_users_on_email ON admin_users USING btree (email
 --
 
 CREATE UNIQUE INDEX index_admin_users_on_reset_password_token ON admin_users USING btree (reset_password_token);
+
+
+--
+-- Name: index_comments_on_post_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX index_comments_on_post_id ON comments USING btree (post_id);
+
+
+--
+-- Name: fk_rails_2fd19c0db7; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY comments
+    ADD CONSTRAINT fk_rails_2fd19c0db7 FOREIGN KEY (post_id) REFERENCES posts(id);
 
 
 --
