@@ -1,0 +1,10 @@
+<div class="comment">
+	<div id="comment-title">
+		<i><%=h comment.name.upcase %> says:</i>
+		<small id="comment-created-at"><%= comment.created_at.strftime("%Mmin %Hh | %b %d. %Y") %></small>
+		<hr id="comment-hr">
+	</div>
+	<div id="comment-content">
+		<%= simple_format h(comment.body) %>
+	</div>
+</div>

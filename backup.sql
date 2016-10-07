@@ -90,7 +90,8 @@ CREATE TABLE admin_users (
     current_sign_in_ip inet,
     last_sign_in_ip inet,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    name character varying
 );
 
 
@@ -175,7 +176,7 @@ CREATE TABLE posts (
     title character varying,
     body text,
     category_id integer,
-    author_id integer,
+    admin_user_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -262,9 +263,8 @@ SELECT pg_catalog.setval('active_admin_comments_id_seq', 1, false);
 -- Data for Name: admin_users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY admin_users (id, email, encrypted_password, reset_password_token, reset_password_sent_at, remember_created_at, sign_in_count, current_sign_in_at, last_sign_in_at, current_sign_in_ip, last_sign_in_ip, created_at, updated_at) FROM stdin;
-1	admin@example.com	$2a$11$uvu0L6Jt6dwNXWVCarGVoud6ZSmsE38OSR.ERvK5dsOVXgKNsdh3i	\N	\N	\N	1	2016-10-06 11:27:37.66243	2016-10-06 11:27:37.66243	127.0.0.1	127.0.0.1	2016-10-06 11:22:15.425059	2016-10-06 11:27:37.664776
-2	justas.tamulionis@gmail.com	$2a$11$N3GICFqyBab0WDdYdQ2SJegTobwTjm4QmhkwuhT62II50d/WHt3oO	\N	\N	\N	0	\N	\N	\N	\N	2016-10-06 11:31:09.52637	2016-10-06 11:31:09.52637
+COPY admin_users (id, email, encrypted_password, reset_password_token, reset_password_sent_at, remember_created_at, sign_in_count, current_sign_in_at, last_sign_in_at, current_sign_in_ip, last_sign_in_ip, created_at, updated_at, name) FROM stdin;
+2	justas.tamulionis@gmail.com	$2a$11$dK3TsPoHPLtAw8cIssjV/OkpsHs6QHGLomk5GchrvTfv4MLdku0iS	\N	\N	2016-10-06 21:05:08.533091	5	2016-10-06 21:09:45.297582	2016-10-06 21:07:16.65932	127.0.0.1	127.0.0.1	2016-10-06 11:31:09.52637	2016-10-06 21:09:45.299255	Justice
 \.
 
 
@@ -272,7 +272,7 @@ COPY admin_users (id, email, encrypted_password, reset_password_token, reset_pas
 -- Name: admin_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('admin_users_id_seq', 2, true);
+SELECT pg_catalog.setval('admin_users_id_seq', 3, true);
 
 
 --
@@ -293,6 +293,7 @@ COPY categories (id, name, created_at, updated_at) FROM stdin;
 4	Tutorials	2016-10-05 10:44:18.904813	2016-10-05 10:44:18.904813
 5	Programming	2016-10-05 10:44:25.044314	2016-10-05 10:44:25.044314
 6	Design	2016-10-05 10:44:30.690667	2016-10-05 10:44:30.690667
+7	IT	2016-10-06 14:22:12.13443	2016-10-06 14:22:12.13443
 \.
 
 
@@ -300,17 +301,18 @@ COPY categories (id, name, created_at, updated_at) FROM stdin;
 -- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('categories_id_seq', 6, true);
+SELECT pg_catalog.setval('categories_id_seq', 7, true);
 
 
 --
 -- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY posts (id, title, body, category_id, author_id, created_at, updated_at) FROM stdin;
-2	Second post	Sample text for the second post	4	\N	2016-10-05 10:49:48.610779	2016-10-05 10:49:48.610779
-1	New first post title	Sample text	3	\N	2016-10-05 10:48:43.693836	2016-10-05 10:55:04.981276
-3	Third post	Some mtfucking text	3	\N	2016-10-05 18:57:00.321555	2016-10-05 18:57:00.321555
+COPY posts (id, title, body, category_id, admin_user_id, created_at, updated_at) FROM stdin;
+6	New post	Testing new IT post	7	2	2016-10-06 14:23:24.588849	2016-10-06 21:29:43.481945
+3	Third post	Some mtfucking text	3	2	2016-10-05 18:57:00.321555	2016-10-06 21:31:27.564088
+2	Second post	Sample text for the second post	4	2	2016-10-05 10:49:48.610779	2016-10-06 21:31:34.536556
+1	New first post title	Sample text	3	2	2016-10-05 10:48:43.693836	2016-10-06 21:31:43.168714
 \.
 
 
@@ -318,7 +320,7 @@ COPY posts (id, title, body, category_id, author_id, created_at, updated_at) FRO
 -- Name: posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('posts_id_seq', 5, true);
+SELECT pg_catalog.setval('posts_id_seq', 6, true);
 
 
 --
@@ -330,6 +332,7 @@ COPY schema_migrations (version) FROM stdin;
 20161005085547
 20161006104747
 20161006104751
+20161006205857
 \.
 
 

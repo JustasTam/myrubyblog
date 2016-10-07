@@ -106,6 +106,27 @@ a:hover{
  color: #707070
 }
 
+/* Flash */
+
+.flash-message {
+	text-align: center;
+    clear:		both;
+    max-width:	46.923em; /* 610/13 */  
+    *max-width:	45.750em; /* 610/13.3333 - for IE */
+}
+
+#flash-notice {
+	border: thin solid #ff0;
+    background: #4dff4d;
+    opacity: 0.8;
+    color: green;
+}
+
+#flash-error {
+	border: thin solid #8b0000;
+	background: #ffc0cb;
+	color: red;
+}
 
 /* Search */
 #search {
@@ -242,6 +263,25 @@ a:hover{
 
 .links a {
 
+}
+
+/* Comments */
+
+.comment {
+	color: black;
+}
+
+#comment-content {
+	opacity: 0.6;
+}
+
+#comment-hr {
+	opacity: 0.2;
+}
+
+#comment-created-at {
+	float: right;
+	font-size: 10px;
 }
 
 /* Sidebar */

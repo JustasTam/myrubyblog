@@ -26,7 +26,7 @@
    <li>
     <h2>Blogroll</h2>
       <ul>
-        <% all_posts.each do |post| %>
+        <% all_posts.take(10).each do |post| %>
           <li><%= link_to post.title,post_path(id: post.id) %></li>
         <% end %>
       </ul>
